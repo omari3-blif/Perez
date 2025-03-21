@@ -647,8 +647,7 @@ const ytSearch = require('yt-search');
     const firstVideo = searchResults.videos[0];
     const videoUrl = firstVideo.url;
 
-    // Function to get download data from APIs
-    const getDownloadData = async (url) => {
+const getDownloadData = async (url) => {
       try {
         const response = await axios.get(url);
         return response.data;
@@ -669,29 +668,32 @@ const ytSearch = require('yt-search');
 
     let downloadData;
     for (const api of apis) {
-      case 'play':{
-const axios = require('axios');
-const yts = require("yt-search");
-const ffmpeg = require("fluent-ffmpeg");
-const fs = require("fs");
-const path = require("path");
+      downloadData = await getDownloadData(api);
+      if (downloadData && downloadData.success) break;
+    }
 
-  try {
-    if (!text) return m.reply("What song do you want to download?");
+    // Check if a valid download URL was found
+    if (!downloadData || !downloadData.success) {
+      return m.reply('Failed to fetch audio from the API');
+    }
 
-    let search = await yts(text);
-    let link = search.all[0].url;
+    const downloadUrl = downloadData.result.download_url;
+    const videoDetails = downloadData.result;
 
-    const apis = [
-      `https://xploader-api.vercel.app/ytmp3?url=${link}`,
-      `https://apis.davidcyriltech.my.id/youtube/mp3?url=${link}`,
-      `https://api.ryzendesu.vip/api/downloader/ytmp3?url=${link}`,
-      `https://api.dreaded.site/api/ytdl/audio?url=${link}`
-       ];
+    // Prepare the message payload with external ad details
+    const messagePayload = {
+      document: { url: downloadUrl },
+      mimetype: 'audio/mpeg',
+      caption: "𝗗𝗢𝗪𝗡𝗟𝗢𝗔𝗗𝗘𝗗 𝗕𝗬 𝗥𝗔𝗩𝗘𝗡-𝗕𝗢𝗧",
+      fileName: `${videoDetails.title}.mp3`,
+    };
 
-    for (const api of apis) {
-      try {
-        let data = await fetchJson(api);
+	const messagePaylod = {
+      audio: { url: downloadUrl },
+      mimetype: 'audio/mp4',
+      fileName: `${videoDetails.title}.mp3`,
+    };
+
 
         // Checking if the API response is successful
         if (data.status === 200 || data.success) {
