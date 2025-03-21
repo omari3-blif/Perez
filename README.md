@@ -62,5 +62,5 @@ Linking/Pairing:
 
 [MIT License](https://github.com/perez-BOT/blob/main/LICENSE)
 
-Copyright (c) 2025 RPEREZ-BOT 
+𝐂𝐨𝐩𝐲𝐫𝐢𝐠𝐡𝐭 (𝐜) 𝟐𝟎𝟐𝟓 𝐑𝐏𝐄𝐑𝐄𝐙-𝐁𝐎𝐓
 
