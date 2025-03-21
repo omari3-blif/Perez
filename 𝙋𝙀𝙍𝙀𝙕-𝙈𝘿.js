@@ -625,75 +625,29 @@ let options = []
 
 	  }
 		break;
-
-	      case 'play':{
+case 'play':{
 const axios = require('axios');
-const ytSearch = require('yt-search');
-
-  // Check if a query is provided
-  if (!text) {
-    return m.reply("What song do you want to download ?");
-  }
+const yts = require("yt-search");
+const ffmpeg = require("fluent-ffmpeg");
+const fs = require("fs");
+const path = require("path");
 
   try {
-    // Perform a YouTube search based on the query
-    const searchResults = await ytSearch(text);
+    if (!text) return m.reply("What song do you want to download?");
 
-    // Check if any videos were found
-    if (!searchResults || !searchResults.videos.length) {
-      return m.reply('No video found for the specified query.');
-    }
+    let search = await yts(text);
+    let link = search.all[0].url;
 
-    const firstVideo = searchResults.videos[0];
-    const videoUrl = firstVideo.url;
-
-const getDownloadData = async (url) => {
-      try {
-        const response = await axios.get(url);
-        return response.data;
-      } catch (error) {
-        console.error('Error fetching data from API:', error);
-        return { success: false };
-      }
-    };
-
-    // List of APIs to try
     const apis = [
-      `https://api-rin-tohsaka.vercel.app/download/ytmp4?url=${encodeURIComponent(videoUrl)}`,
-      `https://api.davidcyriltech.my.id/download/ytmp3?url=${encodeURIComponent(videoUrl)}`,
-      `https://www.dark-yasiya-api.site/download/ytmp3?url=${encodeURIComponent(videoUrl)}`,
-      `https://api.giftedtech.web.id/api/download/dlmp3?url=${encodeURIComponent(videoUrl)}&apikey=gifted-md`,
-      `https://api.dreaded.site/api/ytdl/audio?url=${encodeURIComponent(videoUrl)}`
-    ];
+      `https://xploader-api.vercel.app/ytmp3?url=${link}`,
+      `https://apis.davidcyriltech.my.id/youtube/mp3?url=${link}`,
+      `https://api.ryzendesu.vip/api/downloader/ytmp3?url=${link}`,
+      `https://api.dreaded.site/api/ytdl/audio?url=${link}`
+       ];
 
-    let downloadData;
     for (const api of apis) {
-      downloadData = await getDownloadData(api);
-      if (downloadData && downloadData.success) break;
-    }
-
-    // Check if a valid download URL was found
-    if (!downloadData || !downloadData.success) {
-      return m.reply('Failed to fetch audio from the API');
-    }
-
-    const downloadUrl = downloadData.result.download_url;
-    const videoDetails = downloadData.result;
-
-    // Prepare the message payload with external ad details
-    const messagePayload = {
-      document: { url: downloadUrl },
-      mimetype: 'audio/mpeg',
-      caption: "𝗗𝗢𝗪𝗡𝗟𝗢𝗔𝗗𝗘𝗗 𝗕𝗬 𝗥𝗔𝗩𝗘𝗡-𝗕𝗢𝗧",
-      fileName: `${videoDetails.title}.mp3`,
-    };
-
-	const messagePaylod = {
-      audio: { url: downloadUrl },
-      mimetype: 'audio/mp4',
-      fileName: `${videoDetails.title}.mp3`,
-    };
-
+      try {
+        let data = await fetchJson(api);
 
         // Checking if the API response is successful
         if (data.status === 200 || data.success) {
@@ -720,7 +674,7 @@ const getDownloadData = async (url) => {
                 {
                   document: { url: outputPath },
                   mimetype: "audio/mp3",
-		  caption: "𝗗𝗢𝗪𝗡𝗟𝗢𝗔𝗗𝗘𝗗 𝗕𝗬 𝐏𝐄𝐑𝐄𝐙-𝐌𝐃",
+		  caption: "𝗗𝗢𝗪𝗡𝗟𝗢𝗔𝗗𝗘𝗗 𝗕𝗬 𝗥𝗔𝗩𝗘𝗡-𝗕𝗢𝗧",
                   fileName: outputFileName,
                 },
                 { quoted: m }
@@ -746,29 +700,7 @@ const getDownloadData = async (url) => {
   }
 }
 	  break;
-
-    // Check if a valid download URL was found
-    if (!downloadData || !downloadData.success) {
-      return m.reply('Failed to fetch audio from the API')
-
-	const messagePaylod = {
-      audio: { url: downloadUrl },
-      mimetype: 'audio/mp4',
-      fileName: `${videoDetails.title}.mp3`,
-    };
-
-    // Send the download link to the user
-    await client.sendMessage(m.chat, messagePayload, { quoted: m });
-
-    await client.sendMessage(m.chat, messagePaylod, { quoted: m });
-
-  } catch (error) {
-    console.error('Error during download process:', error);
-    return m.reply(`Download failed due to an error: ${error.message || error}`);
-  }
-}
-	  break;
-		      
+	      
 	      case 'metallic': {
 		      var mumaker = require("mumaker");
 		     if (!text || text == "") {
@@ -1573,7 +1505,7 @@ m.reply("I am unable to analyze images at the moment\n" + e)
 }
 	      }
 		break;
-	      case "hi": {
+	      case "ai3": {
 		      if (!msgDreaded || !text) {
     m.reply("𝗤𝘂𝗼𝘁𝗲 𝗮𝗻 𝗶𝗺𝗮𝗴𝗲 𝗮𝗻𝗱 𝗴𝗶𝘃𝗲 𝘀𝗼𝗺𝗲 𝗶𝗻𝘀𝘁𝗿𝘂𝗰𝘁𝗶𝗼𝗻𝘀 𝗲𝗵. 𝗜'𝗺 ℙ𝔼ℝ𝔼ℤ-𝕄𝔻 𝗔𝗶, 𝗶 𝘂𝘀𝗲 𝗕𝗮𝗿𝗱 𝘁𝗼 𝗮𝗻𝗮𝗹𝘆𝘇𝗲 𝗶𝗺𝗮𝗴𝗲𝘀.");
     return;
@@ -3266,25 +3198,23 @@ break;
 
   case "vv": case "retrieve":{
 
-if (!m.quoted) return m.reply("Quote a viewonce media!")
+if (!m.quoted) return m.reply("quote a viewonce message eh")
 
-if (m.quoted.message) {
-            let type = Object.keys(m.quoted.message)[0]
-            let q = m.quoted.message[type]
-            let media = await client.downloadMediaMessage(q)
-            if (/video/.test(type)) {
+  const quotedMessage = m.msg?.contextInfo?.quotedMessage;
 
+    if (quotedMessage.imageMessage) {
+      let imageCaption = quotedMessage.imageMessage.caption;
+      let imageUrl = await client.downloadAndSaveMediaMessage(quotedMessage.imageMessage);
+      client.sendMessage(m.chat, { image: { url: imageUrl }, caption: `Retrieved by Raven!\n${imageCaption}`}, { quoted: m });
+    }
 
-               await client.sendMessage(m.chat, { video: media, caption: `Retrieved by 𝙋𝙀𝙍𝙀𝙕-𝙈𝘿! ♊\nOriginal caption: ${q.caption}`}, { quoted: m})
+    if (quotedMessage.videoMessage) {
+      let videoCaption = quotedMessage.videoMessage.caption;
+      let videoUrl = await client.downloadAndSaveMediaMessage(quotedMessage.videoMessage);
+      client.sendMessage(m.chat, { video: { url: videoUrl }, caption: `Retrieved by Raven!\n${videoCaption}`}, { quoted: m });
+    }
 
-            } else if (/image/.test(type)) {
-
-await client.sendMessage(m.chat, { image: media, caption: `Retrieved by 𝙋𝙀𝙍𝙀𝙕-𝙈𝘿! ♊\nOriginal caption: ${q.caption}`}, { quoted: m})
-
-            }
-         } else m.reply("That is not a viewonce media. . .")
-
-      } 
+      }
 	break;
 		      
     case 'take': {
