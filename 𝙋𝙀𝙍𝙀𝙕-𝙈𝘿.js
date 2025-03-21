@@ -2967,7 +2967,7 @@ const title = data.result.title;
  case 'sc': case 'script': case 'repo':
 
  client.sendMessage(m.chat, { image: { url: `https://i.imgur.com/lP9oHm4.jpeg` }, caption: 
-` Hello👋 *${pushname}*,You can deploy 𝙋𝙀𝙍𝙀𝙕-𝙈𝘿 using the GitHub link below 🎭\n\nFork and give us a star✨.\n\n https://https://github.com/Ignatiusperez/Perez/𝐏𝐄𝐑𝐄𝐙-𝐌𝐃/fork\n\nLink with your whatsapp using pairing link below\nPair onrender👇\nhttps://https://perez-md-pairing.onrender.com\n\nPair on replit👇\nhttps://replit.com/@dicksonnicky50/Pairing-𝙿𝙴𝚁𝙴𝚉-𝙼𝙳\n\nAfter uploading the document connect your repo with this link and deploy\nhttps://dashboard.heroku.com/new-app?template=\n\nEnjoy and have fun with 𝐏𝐄𝐑𝐄𝐙-𝐌𝐃!\n\n𝗠𝗮𝗱𝗲 𝗼𝗻 𝗲𝗮𝗿𝘁𝗵 𝗯𝘆 𝗛𝘂𝗺𝗮𝗻𝘀!`},{quoted : m });
+` Hello👋 *${pushname}*,You can deploy 𝙋𝙀𝙍𝙀𝙕-𝙈𝘿 using the GitHub link below 🎭\n\nFork and give us a star✨.\n\n https://https://github.com/Ignatiusperez/Perez/\n\nLink with your whatsapp using pairing link below\nPair onrender👇\nhttps://https://perez-md-pairing.onrender.com\n\nPair on replit👇\nhttps://replit.com/@dicksonnicky50/Pairing-𝙿𝙴𝚁𝙴𝚉-𝙼𝙳\n\nAfter uploading the document connect your repo with this link and deploy\nhttps://dashboard.heroku.com/new-app?template=\n\nEnjoy and have fun with 𝐏𝐄𝐑𝐄𝐙-𝐌𝐃!\n\n𝗠𝗮𝗱𝗲 𝗼𝗻 𝗲𝗮𝗿𝘁𝗵 𝗯𝘆 𝗛𝘂𝗺𝗮𝗻𝘀!`},{quoted : m });
 
    break;
                                                   
