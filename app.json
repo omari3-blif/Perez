@@ -129,5 +129,4 @@
       "url": "https://github.com/Ignatiusperez/Perez"
     }
   ]
-    }
-MODE: process.env.PUBLIC_MODE || "yes",
+    
