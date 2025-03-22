@@ -572,7 +572,7 @@ if (menu === 'VIDEO') {
 client.sendMessage(from, { text: cap}, {quoted: m})
 
 } else if (menu === 'IMAGE') {
-client.sendMessage(m.chat, { image: { url: 'https://i.imgur.com/Uf3hdzW.jpeg' }, caption: cap, fileLength: "9999999999"}, { quoted: m })
+client.sendMessage(m.chat, { image: { url: 'https://files.catbox.moe/k2u5ks.jpg' }, caption: cap, fileLength: "9999999999"}, { quoted: m })
 } else if (menu === 'LINK') {
 client.sendMessage(m.chat, {
                         text: cap,
@@ -581,7 +581,7 @@ client.sendMessage(m.chat, {
                                 showAdAttribution: true,
                                 title: `𝙋𝙀𝙍𝙀𝙕-𝙈𝘿`,
                                 body: `${runtime(process.uptime())}`,
-                                thumbnail: fs.readFileSync('./ℙ𝔼ℝ𝔼ℤ-𝕄𝔻.jpg'),
+                                thumbnail: fs.readFileSync('./Perez.jpg'),
                                 sourceUrl: 'https://wa.me/254108098259?text=Hello👋+perez+Nihostie+Bot+Mkuu+😔',
                                 mediaType: 1,
                                 renderLargerThumbnail: true
