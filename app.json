@@ -1,6 +1,6 @@
 {
-  "name": "VORTEX-MD",
-  "description": "Johnn65 Bad influencer",
+  "name": "𝐏𝐄𝐑𝐄𝐙-𝐌𝐃",
+  "description": "master perez",
   "keywords": [
     "bot",
     "whatsapp",
@@ -15,12 +15,12 @@
     "md-bot"
   ],
   "website": "https://github.com/Johnn65/VORTEX-MD#readme",
-  "repository": "https://github.com/Johnn65/VORTEX-MD.git",
-  "logo": "https://telegra.ph/file/eebe191a0520a79979b34.jpg",
+  "repository": "https://github.com/Ignatiusperez/Perez/",
+  "logo": "https://i.imgur.com/de7YHk9.jpeg",
   "success_url": "/",
   "env": {
     "PREFIX": {
-      "description": "Prefix of VORTEX MD Ex: . , / , # , & etc. Put any symbol or leave it blank",
+      "description": "Prefix of 𝐏𝐄𝐑𝐄𝐙-𝐌𝐃 Ex: . , / , # , & etc. Put any symbol or leave it blank",
       "required": false
 
     },
