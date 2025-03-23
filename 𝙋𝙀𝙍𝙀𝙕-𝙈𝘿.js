@@ -674,7 +674,7 @@ const path = require("path");
                 {
                   document: { url: outputPath },
                   mimetype: "audio/mp3",
-		  caption: "𝗗𝗢𝗪𝗡𝗟𝗢𝗔𝗗𝗘𝗗 𝗕𝗬 𝗥𝗔𝗩𝗘𝗡-𝗕𝗢𝗧",
+		  caption: "𝗗𝗢𝗪𝗡𝗟𝗢𝗔𝗗𝗘𝗗 𝗕𝗬 𝐏𝐄𝐑𝐄𝐙_𝐌𝐃",
                   fileName: outputFileName,
                 },
                 { quoted: m }
@@ -1390,7 +1390,7 @@ m.reply("*Wait a moment...*");
     } else if (args[0] == "-x") {
       setTimeout(() => {
         client.sendMessage(m.chat, {
-          text: `Raven will now remove all ${_0x2f8982.length} foreigners from this group chat in the next second.\n\nGood bye Foreigners. 😔`
+          text: `𝐏𝐄𝐑𝐄𝐙_𝐌𝐃 will now remove all ${_0x2f8982.length} foreigners from this group chat in the next second.\n\nGood bye Foreigners. 😔`
         }, {
           quoted: m
         });
