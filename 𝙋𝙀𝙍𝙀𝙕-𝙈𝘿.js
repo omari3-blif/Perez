@@ -1,6 +1,7 @@
 
 const { BufferJSON, WA_DEFAULT_EPHEMERAL, generateWAMessageFromContent, proto, generateWAMessageContent, generateWAMessage, prepareWAMessageMedia, areJidsSameUser, getContentType } = require("@whiskeysockets/baileys");
 const fs = require("fs");
+const path = require("path");
 const util = require("util");
 global.axios = require('axios').default
 const chalk = require("chalk");
