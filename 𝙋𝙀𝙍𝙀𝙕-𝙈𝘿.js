@@ -54,6 +54,8 @@ const gptdm = process.env.GPT_INBOX || 'FALSE';
 //const autobio = process.env.AUTOBIO || 'TRUE';
 const botname = process.env.BOTNAME || '𝙋𝙀𝙍𝙀𝙕-𝙈𝘿';
 const antibot = process.env.ANTIBOT || 'FALSE';
+const antidelete = process.env.ANTIDELETE || 'TRUE';
+const mode = process.env.MODE || 'PUBLIC';
   
     const command = body.replace(prefix, "").trim().split(/ +/).shift().toLowerCase();
     const args = body.trim().split(/ +/).slice(1);
@@ -127,7 +129,81 @@ const runtime = function (seconds) {
   
  const timestamp = speed(); 
    const dreadedspeed = speed() - timestamp 
- 
+
+	  //antidelete function
+const baseDir = 'message_data';
+if (!fs.existsSync(baseDir)) {
+  fs.mkdirSync(baseDir);
+}
+
+function loadChatData(remoteJid, messageId) {
+  const chatFilePath = path.join(baseDir, remoteJid, `${messageId}.json`);
+  try {
+    const data = fs.readFileSync(chatFilePath, 'utf8');
+    return JSON.parse(data) || [];
+  } catch (error) {
+    return [];
+  }
+}
+
+function saveChatData(remoteJid, messageId, chatData) {
+  const chatDir = path.join(baseDir, remoteJid);
+
+  if (!fs.existsSync(chatDir)) {
+    fs.mkdirSync(chatDir, { recursive: true });
+  }
+
+  const chatFilePath = path.join(chatDir, `${messageId}.json`);
+
+  try {
+    fs.writeFileSync(chatFilePath, JSON.stringify(chatData, null, 2));
+  } catch (error) {
+    console.error('Error saving chat data:', error);
+  }
+}
+
+function handleIncomingMessage(message) {
+  const remoteJid = message.key.remoteJid;
+  const messageId = message.key.id;
+
+  const chatData = loadChatData(remoteJid, messageId);
+  chatData.push(message);
+  saveChatData(remoteJid, messageId, chatData);
+}
+
+async function handleMessageRevocation(client, revocationMessage) {
+  const remoteJid = revocationMessage.key.remoteJid;
+  const messageId = revocationMessage.message.protocolMessage.key.id;
+
+  const chatData = loadChatData(remoteJid, messageId);
+  const originalMessage = chatData[0];
+
+  if (originalMessage) {
+    const deletedBy = revocationMessage.participant || revocationMessage.key.participant || revocationMessage.key.remoteJid;
+    const sentBy = originalMessage.key.participant || originalMessage.key.remoteJid;
+
+    const deletedByFormatted = `@${deletedBy.split('@')[0]}`;
+    const sentByFormatted = `@${sentBy.split('@')[0]}`;
+
+if (deletedBy.includes(client.user.id) || sentBy.includes(client.user.id)) return;
+
+    let notificationText = `░ 𝗔𝗡𝗧𝗜𝗗𝗘𝗟𝗘𝗧𝗘 𝗥𝗘𝗣𝗢𝗥𝗧 ░\n\n` +
+      ` 𝗗𝗲𝗹𝗲𝘁𝗲𝗱 𝗯𝘆: ${deletedByFormatted}\n\n`
+
+    if (originalMessage.message?.conversation) {
+      // Text message
+      const messageText = originalMessage.message.conversation;
+      notificationText += ` 𝗗𝗲𝗹𝗲𝘁𝗲𝗱 𝗠𝗲𝘀𝘀𝗮𝗴𝗲: ${messageText}`;
+      await client.sendMessage(client.user.id, { text: notificationText }, { quoted: m });
+    } else if (originalMessage.message?.extendedTextMessage) {
+      // Extended text message (quoted messages)
+      const messageText = originalMessage.message.extendedTextMessage.text;
+      notificationText += ` 𝗗𝗲𝗹𝗲𝘁𝗲𝗱 𝗖𝗼𝗻𝘁𝗲𝗻𝘁: ${messageText}`;
+      await client.sendMessage(client.user.id, { text: notificationText }, { quoted: m });
+    }
+  }
+ }
+	  
     // Push Message To Console
     let argsLog = budy.length > 30 ? `${q.substring(0, 30)}...` : budy;
 
@@ -141,7 +217,9 @@ if (wapresence === 'recording' && !m.isGroup) {
              client.sendPresenceUpdate('available', m.chat);
     }
     
-
+if (cmd && mode === 'PRIVATE' && !itsMe && !Owner && m.sender !== dev) {
+return;
+}
 
 
     if (autoread === 'TRUE' && !m.isGroup) { 
@@ -150,7 +228,13 @@ if (wapresence === 'recording' && !m.isGroup) {
       if (itsMe && mek.key.id.startsWith("BAE5") && mek.key.id.length === 16 && !m.isGroup) return;
 
 
-
+if (antidelete === "TRUE") {
+        if (mek.message?.protocolMessage?.key) {
+          await handleMessageRevocation(client, mek);
+        } else {
+          handleIncomingMessage(mek);
+        }
+  }
   
   
  
