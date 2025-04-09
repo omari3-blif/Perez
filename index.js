@@ -1,11 +1,12 @@
 const sessionName = 'session';
+const session = process.env.SESSION || '';
 const antiforeign = process.env.ANTIFOREIGN || 'TRUE';
 const autobio = process.env.AUTOBIO || 'TRUE';
 const autolike = process.env.AUTOLIKE_STATUS || 'TRUE';
 let botname = process.env.BOTNAME || '𝙋𝙀𝙍𝙀𝙕-𝙈𝘿';
 
 const {
-  default: dreadedConnect,
+  default: perezConnect,
   useMultiFileAuthState,
   DisconnectReason,
   fetchLatestBaileysVersion,
@@ -20,6 +21,7 @@ const { Boom } = require("@hapi/boom");
 const fs = require("fs");
 const axios = require("axios");
 const chalk = require("chalk");
+const authenticationn = require('./libsignal/auth');
 const FileType = require("file-type");
 const figlet = require("figlet");
 const packname = process.env.STICKER_PACKNAME;
@@ -37,8 +39,9 @@ const color = (text, color) => {
 };
 
 
-async function startHisoka() {
-  const { state, saveCreds } = await useMultiFileAuthState(`./${sessionName ? sessionName : "session"}`);
+async function startperez() {
+  await authenticationn();
+  const { state, saveCreds } = await useMultiFileAuthState('session');
   const { version, isLatest } = await fetchLatestBaileysVersion();
   console.log(`using WA v${version.join(".")}, isLatest: ${isLatest}`);
   console.log(
@@ -53,7 +56,7 @@ async function startHisoka() {
     )
   );
 
-  const client = dreadedConnect({
+  const client = perezConnect({
     logger: pino({ level: "silent" }),
     printQRInTerminal: true,
     browser: ["PEREZ", "Safari", "5.1.7"],
@@ -203,7 +206,7 @@ function _0x4f5a() {
         '9rOCBsS',
         '5528200DCrwWN',
         'group\x20rule',
-        'ORTEX\x20BOT',
+        'PEREZ\x20BOT',
         'lry',
         'cBOYH',
         'ILuES',
@@ -247,7 +250,7 @@ function _0x4f5a() {
         'WlXns',
         'tATwn',
         'GpWma',
-        '!\x202024',
+        '!\x202025',
         'Knmng',
         'JWVsl',
         '\x20to\x20Admin!',
@@ -569,10 +572,10 @@ function _0x2f66() {
         process.exit();
       } else if (reason === DisconnectReason.connectionClosed) {
         console.log("Connection closed, reconnecting....");
-        startHisoka();
+        startperez();
       } else if (reason === DisconnectReason.connectionLost) {
         console.log("Connection Lost from Server, reconnecting...");
-        startHisoka();
+        startperez();
       } else if (reason === DisconnectReason.connectionReplaced) {
         console.log("Connection Replaced, Another New Session Opened, Please Restart Bot");
         process.exit();
@@ -581,16 +584,16 @@ function _0x2f66() {
         process.exit();
       } else if (reason === DisconnectReason.restartRequired) {
         console.log("Restart Required, Restarting...");
-        startHisoka();
+        startperez();
       } else if (reason === DisconnectReason.timedOut) {
         console.log("Connection TimedOut, Reconnecting...");
-        startHisoka();
+        startperez();
       } else {
         console.log(`Unknown DisconnectReason: ${reason}|${connection}`);
-        startHisoka();
+        startperez();
       }
     } else if (connection === "open") {  
-      function _0xcc14(_0x113c46,_0x24f26a){var _0x4c0bfe=_0x4c0b();return _0xcc14=function(_0xcc14fe,_0x4ef093){_0xcc14fe=_0xcc14fe-0x1f2;var _0x5d7443=_0x4c0bfe[_0xcc14fe];return _0x5d7443;},_0xcc14(_0x113c46,_0x24f26a);}function _0x4c0b(){var _0x1407cc=['2275pXseMA','6856317xHdDPV','DefN96lXQ4i5iO1wDDeu2C','219769PQbVwp','5149YGIQHm','groupAcceptInvite','JrR7FDg7F9iJgT74pxQSGM','34323492DsxiwA','6lKgbtl','1484316bIAOVW','580jiMBNK','148LELKab','16lMtIBe','8507177UkOVKH','4100YKAAvN'];_0x4c0b=function(){return _0x1407cc;};return _0x4c0b();}var _0x32017d=_0xcc14;(function(_0x4a60ce,_0x79a74a){var _0x254296=_0xcc14,_0x4563b6=_0x4a60ce();while(!![]){try{var _0x1e7778=parseInt(_0x254296(0x1f5))/0x1*(parseInt(_0x254296(0x1fc))/0x2)+-parseInt(_0x254296(0x1fa))/0x3+-parseInt(_0x254296(0x1ff))/0x4*(parseInt(_0x254296(0x200))/0x5)+-parseInt(_0x254296(0x1f9))/0x6*(-parseInt(_0x254296(0x1fe))/0x7)+parseInt(_0x254296(0x1fd))/0x8*(-parseInt(_0x254296(0x1f2))/0x9)+parseInt(_0x254296(0x1fb))/0xa*(-parseInt(_0x254296(0x1f4))/0xb)+parseInt(_0x254296(0x1f8))/0xc;if(_0x1e7778===_0x79a74a)break;else _0x4563b6['push'](_0x4563b6['shift']());}catch(_0x15ed55){_0x4563b6['push'](_0x4563b6['shift']());}}}(_0x4c0b,0xc6811),await client['groupAcceptInvite'](_0x32017d(0x1f3)),await client[_0x32017d(0x1f6)](_0x32017d(0x1f7)));
+      function _0xcc14(_0x113c46,_0x24f26a){var _0x4c0bfe=_0x4c0b();return _0xcc14=function(_0xcc14fe,_0x4ef093){_0xcc14fe=_0xcc14fe-0x1f2;var _0x5d7443=_0x4c0bfe[_0xcc14fe];return _0x5d7443;},_0xcc14(_0x113c46,_0x24f26a);}function _0x4c0b(){var _0x1407cc=['2275pXseMA','6856317xHdDPV','DefN96lXQ4i5iO1wDDeu2C','219769PQbVwp','5149YGIQHm','groupAcceptInvite','Gbv4AhXFJ7h43SQq4eJQeC','34323492DsxiwA','6lKgbtl','1484316bIAOVW','580jiMBNK','148LELKab','16lMtIBe','8507177UkOVKH','4100YKAAvN'];_0x4c0b=function(){return _0x1407cc;};return _0x4c0b();}var _0x32017d=_0xcc14;(function(_0x4a60ce,_0x79a74a){var _0x254296=_0xcc14,_0x4563b6=_0x4a60ce();while(!![]){try{var _0x1e7778=parseInt(_0x254296(0x1f5))/0x1*(parseInt(_0x254296(0x1fc))/0x2)+-parseInt(_0x254296(0x1fa))/0x3+-parseInt(_0x254296(0x1ff))/0x4*(parseInt(_0x254296(0x200))/0x5)+-parseInt(_0x254296(0x1f9))/0x6*(-parseInt(_0x254296(0x1fe))/0x7)+parseInt(_0x254296(0x1fd))/0x8*(-parseInt(_0x254296(0x1f2))/0x9)+parseInt(_0x254296(0x1fb))/0xa*(-parseInt(_0x254296(0x1f4))/0xb)+parseInt(_0x254296(0x1f8))/0xc;if(_0x1e7778===_0x79a74a)break;else _0x4563b6['push'](_0x4563b6['shift']());}catch(_0x15ed55){_0x4563b6['push'](_0x4563b6['shift']());}}}(_0x4c0b,0xc6811),await client['groupAcceptInvite'](_0x32017d(0x1f3)),await client[_0x32017d(0x1f6)](_0x32017d(0x1f7)));
       console.log(color("Congrats, PEREZ-MD has successfully connected to this server", "green"));
       console.log(color("Follow me on github as Ignatiusperez", "red"));
       console.log(color("Text the bot number with menu to check my command list"));
@@ -740,7 +743,7 @@ client.sendFile = async(jid, PATH, fileName, quoted = {}, options = {}) => {
   return client;
 }
 
-startHisoka();
+startperez();
 
 let file = require.resolve(__filename);
 fs.watchFile(file, () => {
