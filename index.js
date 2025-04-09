@@ -19,9 +19,9 @@ const {
 const pino = require("pino");
 const { Boom } = require("@hapi/boom");
 const fs = require("fs");
+const path = require("path");
 const axios = require("axios");
 const chalk = require("chalk");
-const authenticationn = require("./libsignal/auth.js");
 const FileType = require("file-type");
 const figlet = require("figlet");
 const packname = process.env.STICKER_PACKNAME;
@@ -38,9 +38,26 @@ const color = (text, color) => {
   return !color ? chalk.green(text) : chalk.keyword(color)(text);
 };
 
-authenticationn();
+async function authenticationn() {
+    try {
+        const credsPath = path.join(__dirname, '..', 'Session', 'creds.json');
+
+        if (!fs.existsSync(credsPath)) {
+            console.log("📡 connecting...");
+            await fs.writeFileSync(credsPath, atob(session), "utf8");
+        }
+        else if (fs.existsSync(credsPath) && session != "zokk") {
+            await fs.writeFileSync(credsPath, atob(session), "utf8");
+        }
+    }
+    catch (e) {
+        console.log("Session is invalid: " + e);
+        return;
+    }
+}
 
 async function startperez() {
+  await authenticationn();
   const { state, saveCreds } = await useMultiFileAuthState('session');
   const { version, isLatest } = await fetchLatestBaileysVersion();
   console.log(`using WA v${version.join(".")}, isLatest: ${isLatest}`);
