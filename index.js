@@ -39,21 +39,17 @@ const color = (text, color) => {
 };
 
 async function authenticationn() {
-    try {
-        const credsPath = path.join(__dirname, '..', 'Session', 'creds.json');
-
-        if (!fs.existsSync(credsPath)) {
-            console.log("📡 connecting...");
-            await fs.writeFileSync(credsPath, atob(session), "utf8");
-        }
-        else if (fs.existsSync(credsPath) && session != "zokk") {
-            await fs.writeFileSync(credsPath, atob(session), "utf8");
-        }
+  try {
+    if (!fs.existsSync("./session/creds.json")) {
+      console.log('Connecting...');
+      await fs.writeFileSync("./session/creds.json", atob(session), "utf8");
+    } else if (session !== "zokk") {
+      await fs.writeFileSync("./session/creds.json", atob(session), "utf8");
     }
-    catch (e) {
-        console.log("Session is invalid: " + e);
-        return;
-    }
+  } catch (_0xf348d3) {
+    console.log("Session is invalid: " + _0xf348d3);
+    return;
+  }
 }
 
 async function startperez() {
