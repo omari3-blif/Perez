@@ -25,7 +25,7 @@
 
     },
     "DEV": {
-      "description": "Put any phone numbers you want to be bot owner without + or spaces \",\" Ex: 254114520835,27748379216  ",
+      "description": "Put any phone numbers you want to be bot owner without + or spaces \",\" Ex: 254114520835,27748379216,255760317060  ",
       "required": true
     },
     "NOT_OWNER_MSG": {
@@ -64,15 +64,15 @@
 },
  "WA_PRESENCE": {
       "description": "Input either recording or typing. This enables bot to simulate typing or recording.",
-      "required": false
+      "required": true
 },
  "ANTILINK": {
       "description": "Input TRUE if you want bot to kick link senders",
-      "required": false
+      "required": true
 },
  "ANTILINK_ALL": {
       "description": "Input TRUE if you want bot to kick users sending any links.",
-      "required": false
+      "required": true
 },
  "ANTIBOT": {
       "description": "Input TRUE if you want bot to kick other bots from group",
